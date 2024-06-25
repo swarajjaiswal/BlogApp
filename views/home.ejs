@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Blog App</title>
+    <style>
+      .card-body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card-title,
+      .card-text {
+        flex: 1;
+      }
+
+      .btn-primary {
+        margin-top: auto;
+      }
+
+      .card-img-top {
+        height: 300px;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+
+  <body>
+    <%- include('./partials/navbar') %>
+    <div class="container mt-3">
+      <div class="row">
+        <% if (locals.blogs) { %> <% blogs.forEach(blog=> { %>
+        <div class="col-md-4 mb-3">
+          <div class="card h-100">
+            <% if (blog.coverImg) { %>
+            <img
+              src="/<%= blog.coverImg %>"
+              class="card-img-top"
+              alt="Cover Image"
+            />
+            <% } %>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <p
+                class="card-text"
+                style="
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  white-space: nowrap;
+                "
+              >
+                <%= blog.body.substring(0, 100) %>...
+              </p>
+              <a href="/blog/<%= blog.id %>" class="btn btn-primary mt-auto"
+                >View</a
+              >
+            </div>
+          </div>
+        </div>
+        <% }) %> <% } else { %>
+        <h1
+          class="text-center"
+          style="
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial,
+              sans-serif;
+          "
+        >
+          No blogs found.
+        </h1>
+        <% } %>
+      </div>
+    </div>
+    <%- include('./partials/script') %>
+  </body>
+</html>
